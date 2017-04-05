@@ -1,0 +1,95 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    testCompile 'junit:junit:4.12'
+}
+
+
+def baseUrl = 'https://github.com/JesseeChen/MyLibrary'
+def siteUrl = baseUrl
+def gitUrl = "${baseUrl}.git"
+def issueUrl = "${baseUrl}/issues"
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                description 'viewgroup layout children by ratio in x and y'
+                name 'RatioLayout'  //项目描述
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer { // 开发者信息
+                        name 'jessechen'
+                        email '363780967@qq.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+group 'com.jesse.library'
+version '1.1'
+
+bintray {
+    def properties = new Properties();
+    properties.load(file(rootProject.rootDir.absolutePath+'/local.properties').newDataInputStream())
+    user = properties.getProperty('bintray.user')
+    key = properties.getProperty('bintray.key')
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven' // 上传到中央仓库的名称
+        name = 'ratio_layout' // 上传到jcenter 的项目名称
+        desc = 'library of custom view group of ratio_layout' // 项目描述
+        websiteUrl = siteUrl
+//        issueTrackerUrl = issueUrl
+        vcsUrl = gitUrl
+        labels = ['gradle', 'library']
+        licenses = ['Apache-2.0']
+        publish = true
+    }
+}

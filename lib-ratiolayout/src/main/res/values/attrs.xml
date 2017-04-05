@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RatioLayout">
+        <attr name="x_ratio" format="float"/>
+        <attr name="y_ratio" format="float"/>
+        <attr name="can_drag" format="boolean"/>
+    </declare-styleable>
+</resources>
