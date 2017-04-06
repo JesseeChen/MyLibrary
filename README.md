@@ -16,5 +16,14 @@ eg.when you set "x_ratio" to 0.5f and "y_ratio" to 0.5f,child will layout in cen
 
 * gradle
 ```
+
+repositories{
+    maven{
+        url 'https://dl.bintray.com/jesscheen/maven'
+    }
+}
+
+dependencies{
   compile 'com.jesse.library:lib-ratiolayout:1.1'
+}
   ```
